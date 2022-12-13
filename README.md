@@ -1,4 +1,4 @@
-# Web Component Best Practices
+# Web Component Best Practices (WIP)
 
 Some best practices regarding web component architecture, development, building and publishing.
 
@@ -60,3 +60,8 @@ src/
 * A JavaScript or TypeScript file that `import`s the `class` from `element.js` and serves to encapsulate, or call out the [side-effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science)) of registering the component in the global scope.
 * Calls [`define`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define) to register the component with the [`CustomElementRegistry`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry).
 * Uses [top level `await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await) to delay execution of the component by dependent modules until the [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) returned from [`CustomElementRegistry.whenDefined`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/whenDefined) resolves with the component's constructor.
+
+
+## Publishing
+
+When publishing a web component to a registry like npm, a script located in the bin directory can be used to move static assets to their appropriate location. Usually the statics will be served by a CDN or web server/reverse-proxy like Nginx. The published script can be used by clients in their CD pipeline when building the application using the web component.
