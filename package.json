@@ -1,0 +1,29 @@
+{
+  "name": "web-component-best-practices",
+  "version": "1.0.0",
+  "description": "Best practices for architecting, developing, building, and publishing HTML custom elements with minimal dependencies and a quality developer experience.",
+  "private": true,
+  "scripts": {
+    "prettier": "prettier . -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morganney/web-component-best-practices.git"
+  },
+  "keywords": [
+    "html",
+    "custom element",
+    "cdn",
+    "best practices",
+    "developer experience"
+  ],
+  "author": "Morgan Ney <morganney@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/morganney/web-component-best-practices/issues"
+  },
+  "homepage": "https://github.com/morganney/web-component-best-practices#readme",
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}
