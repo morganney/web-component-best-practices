@@ -53,7 +53,7 @@ example/
 
 - Defines the custom element class (`extends HTMLElement`).
 - Handles lifecycle behavior and shadow-root setup.
-- Uses top-level `await` so dependent modules wait for template/styles setup.
+- Uses [top-level `await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#top_level_await) so dependent modules wait for template/styles setup.
 - Exposes `register(name?)` for explicit, side-effect-free registration.
 
 ### `defined.js`
@@ -99,3 +99,19 @@ npm pack --dry-run
 Keeping HTML/CSS/JS in separate files improves readability and maintenance, but can add extra requests at runtime when unbundled. For production builds, bundling static assets into JavaScript can reduce requests at the cost of tighter coupling to build tooling.
 
 Both approaches are valid—the right choice depends on your deployment constraints and DX priorities.
+
+## Related example (`youtube-vid`)
+
+For a production-oriented implementation of these patterns, see:
+
+- https://github.com/morganney/youtube-vid
+
+That project demonstrates the same architectural goals with a different packaging decision:
+
+- It uses [Vite asset bundling](https://vitejs.dev/guide/assets#importing-asset-as-string) to include HTML/CSS and reduce runtime requests.
+- It also includes an example [CLI copy script](https://github.com/morganney/youtube-vid/blob/main/src/cli.ts) for workflows that prefer shipping static assets separately.
+
+Historical context:
+
+- Original non-bundled implementation: https://github.com/morganney/youtube-vid/tree/3d7b8ac817170cff8bba036c1a938042a0e0b76f
+- Example consumer usage in a Next.js app: https://github.com/morganney/morgan.neys.info/commit/9771143e1c7c7e6f82baf0a11948cba5a1304c3f#diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R12
