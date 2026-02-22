@@ -9,9 +9,7 @@ export const fetchText = async (url, label) => {
   const response = await fetch(url)
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to load ${label} (${response.status} ${response.statusText}) from ${url}`,
-    )
+    throw new Error(`Failed to load ${label} (${response.status} ${response.statusText}) from ${url}`)
   }
 
   return response.text()

@@ -25,6 +25,9 @@
       dynamic-name {
         border: 2px dashed blue;
       }
+      cdn-dynamic-name {
+        border: 2px dashed purple;
+      }
       no-side-effects {
         border: 2px dashed green;
       }
@@ -33,6 +36,14 @@
       import './src/defined.js'
       import './src/defined.js?name=dynamic-name'
       import WebComponent from './src/element.js'
+
+      const cdnBase = `${window.location.protocol}//unpkg.com/web-component-best-practices@latest/example/src`
+
+      try {
+        await import(`${cdnBase}/defined.js?name=cdn-dynamic-name`)
+      } catch (error) {
+        console.warn('CDN example import failed. Local examples still work.', error)
+      }
 
       customElements.whenDefined('no-side-effects').then(() => {
         console.log('no-side-effects is defined.')
@@ -43,66 +54,63 @@
   <body>
     <h1>Web Component Best Practices</h1>
     <p>
-      This example demonstrates how to architect a modern custom HTML element with clear
-      separation of concerns, maintainable component boundaries, and a unified loading
-      flow using modern module patterns such as top-level await.
+      This example demonstrates how to architect a modern custom HTML element with clear separation of concerns,
+      maintainable component boundaries, and a unified loading flow using modern module patterns such as top-level
+      await.
     </p>
     <p>All components below are composed from the same four source files:</p>
     <ul>
       <li><code>template.html</code> — shadow markup and slot contract</li>
       <li><code>styles.css</code> — encapsulated component styles</li>
-      <li>
-        <code>element.js</code> — class definition, lifecycle behavior, and TLA setup
-      </li>
+      <li><code>element.js</code> — class definition, lifecycle behavior, and TLA setup</li>
       <li><code>defined.js</code> — explicit registration side-effect entrypoint</li>
     </ul>
     <p>
-      They are registered under different names using the same imported class and
-      demonstrate how to create components with and without side effects on import, as
-      well as how to use query parameters to customize component behavior. The element
-      makes use of <code>new URL(import.meta.url)</code> to resolve loading paths
-      dynamically. Use package.json <code>exports</code> to define the preferred API
-      surface for consumers and whether the side-effect entrypoint should be default.
+      They are registered under different names using the same imported class and demonstrate how to create components
+      with and without side effects on import, as well as how to use query parameters to customize component behavior.
+      The element makes use of <code>new URL(import.meta.url)</code> to resolve loading paths dynamically. Use
+      package.json <code>exports</code> to define the preferred API surface for consumers and whether the side-effect
+      entrypoint should be default.
     </p>
     <div>
       <no-side-effects>
         <code slot="registration">&lt;script type="module"&gt;</code>
-        <code slot="registration"
-          >&nbsp;&nbsp;import WebComponent from './src/element.js'</code
-        >
-        <code slot="registration"
-          >&nbsp;&nbsp;WebComponent.register('no-side-effects') // Convenience API</code
-        >
+        <code slot="registration">&nbsp;&nbsp;import WebComponent from './src/element.js'</code>
+        <code slot="registration">&nbsp;&nbsp;WebComponent.register('no-side-effects') // Convenience API</code>
         <code slot="registration">&lt;/script&gt;</code>
         <p>
-          This component is registered with a static tag name and demonstrates how to
-          create a component without side effects on import. It requires two explicit
-          steps to import the class and then register the custom element, but it provides
-          a more predictable loading flow and better separation of concerns.
+          This component is registered with a static tag name and demonstrates how to create a component without side
+          effects on import. It requires two explicit steps to import the class and then register the custom element,
+          but it provides a more predictable loading flow and better separation of concerns.
         </p>
       </no-side-effects>
       <web-component-best-practices>
         <code slot="registration">&lt;script type="module"&gt;</code>
-        <code slot="registration"
-          >&nbsp;&nbsp;import './src/defined.js' // Uses default name</code
-        >
+        <code slot="registration">&nbsp;&nbsp;import './src/defined.js' // Uses default name</code>
         <code slot="registration">&lt;/script&gt;</code>
-        <p>
-          This component is registered as a side effect of importing the module from the
-          './defined.js' entrypoint.
-        </p>
+        <p>This component is registered as a side effect of importing the module from the './defined.js' entrypoint.</p>
       </web-component-best-practices>
       <dynamic-name>
         <code slot="registration">&lt;script type="module"&gt;</code>
+        <code slot="registration">&nbsp;&nbsp;import './src/defined.js?name=dynamic-name'</code>
+        <code slot="registration">&lt;/script&gt;</code>
+        <p>
+          This component is registered with a custom tag name via query parameter while using the side effect
+          entrypoint.
+        </p>
+      </dynamic-name>
+      <cdn-dynamic-name>
+        <code slot="registration">&lt;script type="module"&gt;</code>
         <code slot="registration"
-          >&nbsp;&nbsp;import './src/defined.js?name=dynamic-name'</code
+          >&nbsp;&nbsp;import
+          'https://unpkg.com/web-component-best-practices@latest/example/src/defined.js?name=cdn-dynamic-name'</code
         >
         <code slot="registration">&lt;/script&gt;</code>
         <p>
-          This component is registered with a custom tag name via query parameter while
-          using the side effect entrypoint.
+          This component demonstrates how to use the side effect entrypoint with a CDN URL and dynamic name via query
+          parameter.
         </p>
-      </dynamic-name>
+      </cdn-dynamic-name>
     </div>
   </body>
 </html>

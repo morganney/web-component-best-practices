@@ -1,10 +1,15 @@
 {
   "name": "web-component-best-practices",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Best practices for architecting, developing, building, and publishing HTML custom elements with minimal dependencies and a quality developer experience.",
+  "type": "module",
+  "exports": {
+    "./*": "./example/src/*"
+  },
   "scripts": {
     "prettier": "prettier . -w",
-    "example": "http-server ./example"
+    "example": "http-server ./example",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -23,13 +28,26 @@
     "url": "https://github.com/morganney/web-component-best-practices/issues"
   },
   "homepage": "https://github.com/morganney/web-component-best-practices#readme",
+  "files": [
+    "example/**"
+  ],
   "devDependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^10.0.1",
+    "@html-eslint/eslint-plugin": "^0.56.0",
+    "eslint": "^10.0.1",
+    "eslint-plugin-wc": "^3.1.0",
+    "globals": "^17.3.0",
     "http-server": "^14.1.1",
     "prettier": "^3.8.1"
   },
+  "overrides": {
+    "minimatch": "^10.2.2"
+  },
   "prettier": {
     "arrowParens": "avoid",
-    "printWidth": 90,
+    "bracketSameLine": true,
+    "printWidth": 120,
     "semi": false,
     "singleQuote": true
   }

@@ -8,6 +8,11 @@
     margin: 0 0 0.5rem 0;
   }
 
+  slot[name='registration'] {
+    display: block;
+    background: #eee;
+  }
+
   ::slotted(code[slot='registration']) {
     background: #eee;
     padding: 0.2rem 0.4rem;
