@@ -28,7 +28,7 @@ export default [
     rules: {
       ...html.configs['flat/recommended'].rules,
       '@html-eslint/attrs-newline': 'off',
-      '@html-eslint/indent': ['error', 2],
+      '@html-eslint/indent': 'off',
       '@html-eslint/no-extra-spacing-attrs': 'off',
       '@html-eslint/require-closing-tags': ['error', { selfClosing: 'always' }],
     },
