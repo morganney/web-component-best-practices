@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   publish:
-    if: contains('["morganney"]', github.actor)
+    if: contains(fromJSON('["morganney"]'), github.actor)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
