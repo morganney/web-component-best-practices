@@ -15,9 +15,12 @@ const setup = async () => {
   template.content.prepend(style)
 
   return class WebComponentBestPractices extends HTMLElement {
+    #nameCode
+
     constructor() {
       super()
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
+      this.#nameCode = this.shadowRoot.querySelector('h2 code')
     }
 
     static tagName = 'web-component-best-practices'
@@ -29,10 +32,8 @@ const setup = async () => {
       const currentTag = this.tagName.toLowerCase()
 
       if (currentTag !== this.constructor.tagName.toLowerCase()) {
-        const code = this.shadowRoot.querySelector('code')
-
-        if (code) {
-          code.textContent = currentTag
+        if (this.#nameCode) {
+          this.#nameCode.textContent = currentTag
         }
       }
     }
