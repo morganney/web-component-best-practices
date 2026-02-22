@@ -1,0 +1,22 @@
+:host {
+  border: 2px dashed gray;
+  padding: 1rem;
+  display: block;
+  font-family: sans-serif;
+
+  h2 {
+    margin: 0 0 0.5rem 0;
+  }
+
+  ::slotted(code[slot='registration']) {
+    background: #eee;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.9em;
+    display: block;
+    border-radius: 0;
+  }
+
+  ::slotted(p:last-child) {
+    margin-bottom: 0;
+  }
+}
