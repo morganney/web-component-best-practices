@@ -1,8 +1,9 @@
+import { getBaseUrl } from './util.js'
+
 const define = async () => {
   const url = new URL(import.meta.url)
   const name = url.searchParams.get('name') ?? 'web-component-best-practices'
-  const directory = url.pathname.substring(0, url.pathname.lastIndexOf('/'))
-  const baseUrl = `${url.origin}${directory}`
+  const baseUrl = getBaseUrl(url)
   const element = await import(`${baseUrl}/element.js`)
 
   /**
@@ -12,7 +13,9 @@ const define = async () => {
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#exceptions
    */
-  customElements.define(name, class extends element.default {})
+  if (!customElements.get(name)) {
+    customElements.define(name, class extends element.default {})
+  }
 
   return await customElements.whenDefined(name)
 }
