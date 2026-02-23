@@ -27,7 +27,6 @@ example/
   src/
     template.html
     styles.css
-    util.js
     element.js
     defined.js
 ```
@@ -42,12 +41,6 @@ example/
 - One root [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
 - Contains component markup and named/default [`<slot>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) regions.
 - Fetched by `element.js` and cloned into shadow DOM.
-
-### `util.js`
-
-- Shared helper utilities used by runtime modules.
-- `getBaseUrl(...)` resolves module-relative asset URLs via `import.meta.url`.
-- `fetchText(...)` provides explicit fetch error handling for template/styles loading.
 
 ### `element.js`
 
@@ -70,29 +63,6 @@ example/
 2. **Default side-effect registration** via `defined.js`
 3. **Local dynamic name** via `defined.js?name=dynamic-name`
 4. **CDN dynamic name** via `defined.js?name=cdn-dynamic-name`
-
-The CDN import is loaded defensively so local HTTP development still works even if the CDN import fails.
-
-## Local development
-
-```bash
-npm install
-npm run example
-```
-
-Then open the served example page and inspect the component variants.
-
-## Publishing
-
-This package is configured to publish the `example/` implementation files.
-
-Useful pre-publish checks:
-
-```bash
-npm run lint
-npm audit --omit=dev
-npm pack --dry-run
-```
 
 ## Tradeoffs
 
