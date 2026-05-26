@@ -1,8 +1,8 @@
 :host {
-  border: var(--wcbp-border-width) var(--wcbp-border-style) gray;
-  padding: var(--wcbp-padding);
-  display: var(--wcbp-display);
-  font-family: var(--wcbp-font-family);
+  border: var(--wcbp-border-width, 1px) var(--wcbp-border-style, solid) gray;
+  padding: var(--wcbp-padding, 1rem);
+  display: var(--wcbp-display, block);
+  font-family: var(--wcbp-font-family, sans-serif);
 
   h2 {
     margin: 0 0 0.5rem;
