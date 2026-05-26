@@ -14,22 +14,28 @@ const setup = async () => {
   style.textContent = css
   template.content.prepend(style)
 
+  // Support both runtime shadow DOM setup and upgrade of pre-parsed DSD roots.
   return class WebComponentBestPractices extends HTMLElement {
     #nameCode
-    #hydrationDemoButton
-    #onHydrationDemoClick
+    #demoActionButton
+    #onDemoActionClick
+    #usesDeclarativeShadowDom
 
     constructor() {
       super()
+
+      this.#usesDeclarativeShadowDom = Boolean(this.shadowRoot)
 
       if (!this.shadowRoot) {
         this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
       }
 
       this.#nameCode = this.shadowRoot?.querySelector('h2 code') ?? null
-      this.#hydrationDemoButton = this.shadowRoot?.querySelector('[data-hydration-demo]') ?? null
-      this.#onHydrationDemoClick = () => {
-        globalThis.alert?.(`Hydration click handled by ${this.tagName.toLowerCase()}`)
+      this.#demoActionButton = this.shadowRoot?.querySelector('[data-demo-action]') ?? null
+      this.#onDemoActionClick = () => {
+        const interactionType = this.#usesDeclarativeShadowDom ? 'Hydration' : 'Client interaction'
+
+        globalThis.alert?.(`${interactionType} click handled by ${this.tagName.toLowerCase()}`)
       }
     }
 
@@ -47,14 +53,14 @@ const setup = async () => {
         }
       }
 
-      if (this.#hydrationDemoButton && this.#onHydrationDemoClick) {
-        this.#hydrationDemoButton.addEventListener('click', this.#onHydrationDemoClick)
+      if (this.#demoActionButton && this.#onDemoActionClick) {
+        this.#demoActionButton.addEventListener('click', this.#onDemoActionClick)
       }
     }
 
     disconnectedCallback() {
-      if (this.#hydrationDemoButton && this.#onHydrationDemoClick) {
-        this.#hydrationDemoButton.removeEventListener('click', this.#onHydrationDemoClick)
+      if (this.#demoActionButton && this.#onDemoActionClick) {
+        this.#demoActionButton.removeEventListener('click', this.#onDemoActionClick)
       }
     }
   }

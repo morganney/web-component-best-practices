@@ -26,7 +26,7 @@ slot[name='registration'] {
   margin-bottom: 0;
 }
 
-button[data-hydration-demo] {
+button[data-demo-action] {
   margin-top: 0.75rem;
   padding: 0.5rem 0.75rem;
   border: 1px solid #1e3a5f;
@@ -44,16 +44,16 @@ button[data-hydration-demo] {
     box-shadow 120ms ease;
 }
 
-button[data-hydration-demo]:hover {
+button[data-demo-action]:hover {
   filter: brightness(1.06);
   box-shadow: 0 2px 8px rgb(15 40 70 / 28%);
 }
 
-button[data-hydration-demo]:active {
+button[data-demo-action]:active {
   transform: translateY(1px);
 }
 
-button[data-hydration-demo]:focus-visible {
+button[data-demo-action]:focus-visible {
   outline: 2px solid #4a8ad1;
   outline-offset: 2px;
 }
