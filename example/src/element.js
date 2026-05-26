@@ -5,7 +5,7 @@ const setup = async () => {
   const baseUrl = getBaseUrl(url)
   const [html, css] = await Promise.all([
     fetchText(`${baseUrl}/template.html`, 'template'),
-    fetchText(`${baseUrl}/styles.css`, 'styles'),
+    fetchText(`${baseUrl}/styles.css?direct`, 'styles'),
   ])
   const parser = new DOMParser()
   const template = parser.parseFromString(html, 'text/html').querySelector('template')
@@ -19,8 +19,12 @@ const setup = async () => {
 
     constructor() {
       super()
-      this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
-      this.#nameCode = this.shadowRoot.querySelector('h2 code')
+
+      if (!this.shadowRoot) {
+        this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
+      }
+
+      this.#nameCode = this.shadowRoot?.querySelector('h2 code') ?? null
     }
 
     static tagName = 'web-component-best-practices'

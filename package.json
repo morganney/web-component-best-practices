@@ -10,6 +10,9 @@
   "scripts": {
     "prettier": "prettier . -w",
     "example": "http-server ./example",
+    "dev": "vite",
+    "build": "vite build && node scripts/copy-example-static.js",
+    "preview": "vite preview",
     "lint": "eslint .",
     "lint:style": "stylelint **/*.css",
     "prepare": "husky"
@@ -45,7 +48,9 @@
     "lint-staged": "^17.0.5",
     "prettier": "^3.8.3",
     "stylelint": "^17.12.0",
-    "stylelint-config-standard": "^40.0.0"
+    "stylelint-config-standard": "^40.0.0",
+    "vite": "^8.0.14",
+    "vite-plugin-html": "^3.2.2"
   },
   "prettier": {
     "arrowParens": "avoid",

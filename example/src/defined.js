@@ -4,7 +4,7 @@ const define = async () => {
   const url = new URL(import.meta.url)
   const name = url.searchParams.get('name') ?? 'web-component-best-practices'
   const baseUrl = getBaseUrl(url)
-  const element = await import(`${baseUrl}/element.js`)
+  const element = await import(/* @vite-ignore */ `${baseUrl}/element.js`)
 
   /**
    * Support defining multiple custom element names with the same constructor.

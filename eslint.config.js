@@ -30,10 +30,11 @@ export default [
       '@html-eslint/indent': 'off',
       '@html-eslint/no-extra-spacing-attrs': 'off',
       '@html-eslint/no-extra-spacing-tags': 'off',
+      '@html-eslint/use-baseline': 'off',
       '@html-eslint/require-closing-tags': ['error', { selfClosing: 'always' }],
     },
   },
   {
-    ignores: ['coverage/**', 'node_modules/**'],
+    ignores: ['coverage/**', 'dist/**', 'node_modules/**'],
   },
 ]
