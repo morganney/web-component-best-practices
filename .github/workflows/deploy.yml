@@ -27,6 +27,8 @@ jobs:
           node-version: '26.2.0'
       - name: Install Dependencies
         run: npm ci
+      - name: Build
+        run: npm run build
       - name: Save error log
         uses: actions/upload-artifact@v7.0.1
         if: ${{ failure() }}
@@ -38,7 +40,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5.0.0
         with:
-          path: './example/'
+          path: './dist/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5.0.0

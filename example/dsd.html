@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" class="wcbp-ready">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Component Best Practices - Declarative Shadow DOM</title>
+    <link rel="stylesheet" href="./global.css" />
+    <script type="module" src="./src/dsd/register.js"></script>
+    <style>
+      table {
+        width: 100%;
+        max-width: 64rem;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        background: #fafafa;
+      }
+
+      caption {
+        caption-side: top;
+        text-align: left;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      th,
+      td {
+        padding: 0.5rem 0.6rem;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      thead th {
+        background: #f0f0f0;
+        border-bottom: 2px solid #d0d0d0;
+      }
+
+      tbody td {
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Web Component Best Practices (Declarative Shadow DOM)</h1>
+    <p>
+      This page is generated at build time and demonstrates parser-time declarative shadow DOM with reusable source
+      partials. The templates are emitted directly into this HTML output so shadow roots are created by HTML parsing
+      rather than runtime DOM assembly.
+    </p>
+    <table>
+      <caption>
+        Constraint matrix (you can only pick two). Current state of the art: there is no native browser mechanism to
+        import reusable HTML fragments across documents while preserving true parser-time DSD semantics.
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Keep</th>
+          <th scope="col">Implementation</th>
+          <th scope="col">Tradeoff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>DSD + no build</td>
+          <td>duplicate markup in each HTML file</td>
+          <td>not DRY (drift risk)</td>
+        </tr>
+        <tr>
+          <td>DRY + no build</td>
+          <td>runtime JS composition/fetch</td>
+          <td>not true parser-time DSD</td>
+        </tr>
+        <tr>
+          <td>DSD + DRY</td>
+          <td>build step or server-side composition</td>
+          <td>cannot stay no-build/no-server</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="demo-components">
+      <!-- inject:cards -->
+    </div>
+  </body>
+</html>

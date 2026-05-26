@@ -64,11 +64,39 @@ example/
 3. **Local dynamic name** via `defined.js?name=dynamic-name`
 4. **CDN dynamic name** via `defined.js?name=cdn-dynamic-name`
 
+## Declarative Shadow DOM (DSD) approach
+
+This repo also includes a parser-time DSD variant in `example/dsd.html`.
+
+- `example/dsd.html` is the DSD page template.
+- `example/src/dsd/template.js` provides reusable HTML template strings for the component cards.
+- `vite.config.js` injects those templates into `<!-- inject:cards -->` at build time.
+
+This gives you true parser-time shadow roots in the generated HTML while keeping the card markup DRY in source.
+
+### Why `example/src/dsd/register.js` exists
+
+Parser-time DSD creates shadow roots from HTML, but custom elements still need to be defined to upgrade and run lifecycle code.
+
+`example/src/dsd/register.js` is a focused bootstrap module that registers all demo tag-name variants used on the DSD page:
+
+1. side-effect registration via `defined.js`
+2. dynamic-name registration via `defined.js?name=dynamic-name`
+3. explicit registration via `element.js` + `register('no-side-effects')`
+
+Without this bootstrap file, DSD markup would still parse, but the custom elements on that page would not upgrade.
+
 ## Tradeoffs
 
-Keeping HTML/CSS/JS in separate files improves readability and maintenance, but can add extra requests at runtime when unbundled. For production builds, bundling static assets into JavaScript can reduce requests at the cost of tighter coupling to build tooling.
+There is a hard constraint triangle for this problem space. Today, you can reliably pick two of these three goals at once: true parser-time DSD, DRY shared markup, and no build/no server composition.
 
-Both approaches are valid—the right choice depends on your deployment constraints and DX priorities.
+| Keep | Implementation | Tradeoff |
+| --- | --- | --- |
+| DSD + no build | duplicate markup in each HTML file | not DRY (drift risk) |
+| DRY + no build | runtime JS composition/fetch | not true parser-time DSD |
+| DSD + DRY | build step or server-side composition | cannot stay no-build/no-server |
+
+For this repo, the DSD path chooses DSD + DRY via build-time composition, while the runtime path keeps separate source files with no required build for local static serving.
 
 ## Related example (`youtube-vid`)
 
