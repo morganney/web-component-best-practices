@@ -16,6 +16,8 @@ const setup = async () => {
 
   return class WebComponentBestPractices extends HTMLElement {
     #nameCode
+    #hydrationDemoButton
+    #onHydrationDemoClick
 
     constructor() {
       super()
@@ -25,6 +27,10 @@ const setup = async () => {
       }
 
       this.#nameCode = this.shadowRoot?.querySelector('h2 code') ?? null
+      this.#hydrationDemoButton = this.shadowRoot?.querySelector('[data-hydration-demo]') ?? null
+      this.#onHydrationDemoClick = () => {
+        globalThis.alert?.(`Hydration click handled by ${this.tagName.toLowerCase()}`)
+      }
     }
 
     static tagName = 'web-component-best-practices'
@@ -39,6 +45,16 @@ const setup = async () => {
         if (this.#nameCode) {
           this.#nameCode.textContent = currentTag
         }
+      }
+
+      if (this.#hydrationDemoButton && this.#onHydrationDemoClick) {
+        this.#hydrationDemoButton.addEventListener('click', this.#onHydrationDemoClick)
+      }
+    }
+
+    disconnectedCallback() {
+      if (this.#hydrationDemoButton && this.#onHydrationDemoClick) {
+        this.#hydrationDemoButton.removeEventListener('click', this.#onHydrationDemoClick)
       }
     }
   }
