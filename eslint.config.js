@@ -1,5 +1,4 @@
 import js from '@eslint/js'
-import css from '@eslint/css'
 import html from '@html-eslint/eslint-plugin'
 import wc from 'eslint-plugin-wc'
 import globals from 'globals'
@@ -30,13 +29,9 @@ export default [
       '@html-eslint/attrs-newline': 'off',
       '@html-eslint/indent': 'off',
       '@html-eslint/no-extra-spacing-attrs': 'off',
+      '@html-eslint/no-extra-spacing-tags': 'off',
       '@html-eslint/require-closing-tags': ['error', { selfClosing: 'always' }],
     },
-  },
-  {
-    files: ['**/*.css'],
-    language: 'css/css',
-    ...css.configs.recommended,
   },
   {
     ignores: ['coverage/**', 'node_modules/**'],

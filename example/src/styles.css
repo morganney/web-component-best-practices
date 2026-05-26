@@ -1,11 +1,11 @@
 :host {
-  border: 2px dashed gray;
-  padding: 1rem;
-  display: block;
-  font-family: sans-serif;
+  border: var(--wcbp-border-width, 1px) var(--wcbp-border-style, solid) gray;
+  padding: var(--wcbp-padding, 1rem);
+  display: var(--wcbp-display, block);
+  font-family: var(--wcbp-font-family, sans-serif);
 
   h2 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
   }
 
   slot[name='registration'] {
