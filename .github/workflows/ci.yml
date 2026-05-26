@@ -30,5 +30,7 @@ jobs:
           path: npm-debug.log
       - name: Lint
         run: npm run lint
+      - name: Lint CSS
+        run: npm run lint:style
       - name: Pack
         run: npm pack

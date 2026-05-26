@@ -32,6 +32,8 @@ jobs:
         run: npm pack
       - name: Lint
         run: npm run lint
+      - name: Lint CSS
+        run: npm run lint:style
       - name: Push to NPM registry
         uses: JS-DevTools/npm-publish@v4.1.5
         with:

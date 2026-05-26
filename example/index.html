@@ -4,44 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Component Best Practices</title>
-    <style>
-      body {
-        font-family: system-ui, sans-serif;
-        padding: 1.5rem;
-        margin: 0;
-      }
-      h1 {
-        margin: 0 0 1rem;
-      }
-      div {
-        display: grid;
-        gap: 1rem;
-      }
-      code {
-        background: #f0f0f0;
-        padding: 0.2rem 0.4rem;
-        border-radius: 4px;
-      }
-      dynamic-name {
-        border: 2px dashed blue;
-      }
-      cdn-dynamic-name {
-        border: 2px dashed purple;
-      }
-      no-side-effects {
-        border: 2px dashed green;
-      }
-    </style>
+    <link rel="stylesheet" href="./global.css" />
     <script type="module">
+      import WebComponent from './src/element.js'
       import './src/defined.js'
       import './src/defined.js?name=dynamic-name'
       import 'https://unpkg.com/web-component-best-practices/defined.js?name=cdn-dynamic-name'
-      import WebComponent from './src/element.js'
 
-      customElements.whenDefined('no-side-effects').then(() => {
-        console.log('no-side-effects is defined.')
-      })
+      const markReady = () => {
+        const container = document.querySelector('.demo-components')
+
+        document.documentElement.classList.add('wcbp-ready')
+
+        if (container) {
+          container.setAttribute('aria-busy', 'false')
+        }
+      }
+      const revealWhenReady = async () => {
+        try {
+          await Promise.all([
+            customElements.whenDefined('web-component-best-practices'),
+            customElements.whenDefined('dynamic-name'),
+            customElements.whenDefined('cdn-dynamic-name'),
+            customElements.whenDefined('no-side-effects'),
+          ])
+        } catch (error) {
+          console.error('Component readiness check failed:', error)
+        } finally {
+          markReady()
+        }
+      }
+
       WebComponent.register('no-side-effects')
+      await revealWhenReady()
     </script>
   </head>
   <body>
@@ -65,7 +60,7 @@
       package.json <code>exports</code> to define the preferred API surface for consumers and whether the side-effect
       entrypoint should be default.
     </p>
-    <div>
+    <div class="demo-components" aria-busy="true">
       <no-side-effects>
         <code slot="registration">&lt;script type="module"&gt;</code>
         <code slot="registration">&nbsp;&nbsp;import WebComponent from './src/element.js'</code>
