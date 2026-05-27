@@ -1,6 +1,6 @@
 {
   "name": "web-component-best-practices",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Best practices for architecting, developing, building, and publishing HTML custom elements with minimal dependencies and a quality developer experience.",
   "type": "module",
   "exports": {
