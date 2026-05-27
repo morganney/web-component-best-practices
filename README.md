@@ -80,9 +80,10 @@ Parser-time DSD creates shadow roots from HTML, but custom elements still need t
 
 `example/src/dsd/register.js` is a focused bootstrap module that registers all demo tag-name variants used on the DSD page:
 
-1. side-effect registration via `defined.js`
-2. dynamic-name registration via `defined.js?name=dynamic-name`
-3. explicit registration via `element.js` + `register('no-side-effects')`
+1. explicit registration for the default tag name via `element.js` + `register(...)`
+2. explicit registration for `dynamic-name` via `register('dynamic-name')`
+3. explicit registration for `no-side-effects` via `register('no-side-effects')`
+4. CDN dynamic-name registration via `defined.js?name=cdn-dynamic-name`
 
 Without this bootstrap file, DSD markup would still parse, but the custom elements on that page would not upgrade.
 
@@ -90,11 +91,11 @@ Without this bootstrap file, DSD markup would still parse, but the custom elemen
 
 There is a hard constraint triangle for this problem space. Today, you can reliably pick two of these three goals at once: true parser-time DSD, DRY shared markup, and no build/no server composition.
 
-| Keep | Implementation | Tradeoff |
-| --- | --- | --- |
-| DSD + no build | duplicate markup in each HTML file | not DRY (drift risk) |
-| DRY + no build | runtime JS composition/fetch | not true parser-time DSD |
-| DSD + DRY | build step or server-side composition | cannot stay no-build/no-server |
+| Keep           | Implementation                        | Tradeoff                       |
+| -------------- | ------------------------------------- | ------------------------------ |
+| DSD + no build | duplicate markup in each HTML file    | not DRY (drift risk)           |
+| DRY + no build | runtime JS composition/fetch          | not true parser-time DSD       |
+| DSD + DRY      | build step or server-side composition | cannot stay no-build/no-server |
 
 For this repo, the DSD path chooses DSD + DRY via build-time composition, while the runtime path keeps separate source files with no required build for local static serving.
 
