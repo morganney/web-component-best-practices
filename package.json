@@ -1,15 +1,15 @@
 {
   "name": "web-component-best-practices",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Best practices for architecting, developing, building, and publishing HTML custom elements with minimal dependencies and a quality developer experience.",
   "type": "module",
   "exports": {
     ".": "./example/src/element.js",
-    "./defined.js": "./example/src/defined.js"
+    "./defined.js": "./example/src/defined.js",
+    "./dsd/defined.js": "./example/src/dsd/defined.js"
   },
   "scripts": {
     "prettier": "prettier . -w",
-    "example": "http-server ./example",
     "dev": "vite",
     "build": "vite build && node scripts/copy-example-static.js",
     "preview": "vite preview",
@@ -43,7 +43,6 @@
     "eslint": "^10.4.0",
     "eslint-plugin-wc": "^3.1.0",
     "globals": "^17.6.0",
-    "http-server": "^14.1.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.5",
     "prettier": "^3.8.3",
