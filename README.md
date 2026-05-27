@@ -83,7 +83,7 @@ Parser-time DSD creates shadow roots from HTML, but custom elements still need t
 1. explicit registration for the default tag name via `element.js` + `register(...)`
 2. explicit registration for `dynamic-name` via `register('dynamic-name')`
 3. explicit registration for `no-side-effects` via `register('no-side-effects')`
-4. CDN dynamic-name registration via `defined.js?name=cdn-dynamic-name`
+4. CDN dynamic-name registration via `dsd/defined.js?name=cdn-dynamic-name`
 
 Without this bootstrap file, DSD markup would still parse, but the custom elements on that page would not upgrade.
 
