@@ -22,7 +22,7 @@ slot[name='registration'] {
   border-radius: 0;
 }
 
-::slotted(p:last-child) {
+::slotted(p) {
   margin-bottom: 0;
 }
 

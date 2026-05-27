@@ -26,7 +26,9 @@ export default class WebComponentBestPracticesBase extends HTMLElement {
 
   static tagName = 'web-component-best-practices'
   static register(name = this.tagName) {
-    customElements.define(name, this)
+    if (!customElements.get(name)) {
+      customElements.define(name, name === this.tagName ? this : class extends this {})
+    }
   }
 
   connectedCallback() {
